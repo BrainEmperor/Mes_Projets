@@ -1,0 +1,105 @@
+🧩 1. Modélisation du domaine
+Question : Qu’est-ce qu’une “tâche” dans le contexte de cette application ?
+
+C’est une unité de travail à effectuer, avec :
+
+une description
+
+un statut (faite ou non)
+
+éventuellement une date limite
+
+un identifiant unique
+
+(optionnel) une priorité ou catégorie
+
+🔹 But de cette étape : identifier les entités principales du domaine et leurs attributs.
+
+🧩 2. Définition des actions utilisateur
+Que peut faire l’utilisateur avec l’application ?
+
+Liste des cas d’usage fonctionnels :
+
+Ajouter une tâche
+
+Voir toutes les tâches
+
+Supprimer une tâche
+
+Marquer une tâche comme faite
+
+Filtrer ou trier les tâches (optionnel)
+
+Quitter l'application
+
+🔹 But de cette étape : définir les fonctions métiers que le système doit proposer à l’utilisateur.
+
+🧩 3. Gestion des données
+Où sont stockées les tâches ? Et comment les retrouver plus tard ?
+
+Les tâches doivent être :
+
+stockées temporairement (pendant l'exécution)
+
+sauvegardées de manière persistante (entre deux lancements)
+
+Deux types de stockage :
+
+Volatile : liste en mémoire (RAM)
+
+Persistant : fichier (texte, binaire, ou JSON), ou base de données
+
+🔹 But de cette étape : réfléchir aux mécanismes de conservation des données.
+
+🧩 4. Interaction avec l'utilisateur
+Comment l’utilisateur interagit-il avec le programme ?
+
+Via un menu textuel en console
+
+L’utilisateur fait des choix (1, 2, 3…) ou écrit du texte
+
+Le système réagit, affiche des messages, demande des confirmations
+
+🔹 But de cette étape : définir l’interface utilisateur (simple CLI ici).
+
+🧩 5. Organisation du système (conceptuelle)
+Quelles sont les responsabilités de chaque partie du système ?
+
+Séparation des rôles fonctionnels :
+
+Un modèle qui représente les tâches (entité)
+
+Une logique métier qui gère les tâches (ajout, suppression, recherche, etc.)
+
+Une interface utilisateur qui dialogue avec l’humain
+
+Une partie stockage qui lit/écrit les données sur disque
+
+🔹 But : s'approcher d'une architecture modulaire claire, même en console (proche de MVC).
+
+🧩 6. Contraintes et règles métier
+Y a-t-il des règles à respecter dans le comportement du système ?
+
+Une tâche doit avoir une description non vide
+
+On ne peut pas marquer comme "faite" une tâche qui n'existe pas
+
+Le système doit toujours afficher des messages clairs
+
+L’utilisateur ne doit pas pouvoir entrer une date invalide
+
+Le système doit toujours sauvegarder avant de quitter
+
+🔹 But de cette étape : identifier les règles métier à faire respecter.
+
+🧩 7. Objectif global du programme
+Résumer l’intention finale
+
+Créer une application simple mais complète pour :
+
+Gérer des tâches personnelles
+
+S’entraîner à structurer un mini logiciel
+
+Apprendre à penser en termes d’objets, processus métier et interaction
+
