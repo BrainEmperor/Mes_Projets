@@ -17,7 +17,6 @@ public class Task {
 		this.setDescription(description, false);
 		this.setStatus(status, false);
 		this.setDate_limite(date_limite,false);
-		this.setId(AccesOnDataBase.get_max_id_from_database()+1, false);
 		this.setPriority(priority,false);
 		boolean newTask=AccesOnDataBase.addTask(description, status, date_limite, priority);
 		if (newTask)
@@ -34,12 +33,6 @@ public class Task {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id, boolean set_on_db) {
-		this.id = id;
-//		if (set_on_db)
-//			AccesOnDataBase.modify_task(this.getId(), "id", )
 	}
 
 	public String getDescription() {

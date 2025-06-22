@@ -7,44 +7,12 @@ public class AccesOnDataBase {
 	private static String user="postgres";
 	private static String password="Lxgiwyl0000%";
 	
-	static int get_max_id_from_database()
-	{
-		ResultSet rs = null;
-		int id=0;
-		try 
-		{
-			String query="""
-					        SELECT max(id)
-					        FROM tasks				
-					     """;
-			Connection conn= DriverManager.getConnection(url, user, password);
-			Statement stm=conn.createStatement();
-			rs=stm.executeQuery(query);
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		try 
-		{
-			if(rs.next()) {
-			    id=rs.getInt("id");
-			    System.out.println(id);
-			}
-		} 
-		catch (SQLException e) 
-		{
-//			return 0;
-		}
-		return id;
-	}
-	
 	static boolean addTask(String description, String status, String date_limite, String priority)
 	{
 		String query=String.format("""
-				INSERT INTO  tasks (id, description, date_limite, status, priorite)
-				VALUES (%d, '%s','%s', '%s', '%s');
-				""", get_max_id_from_database()+1, description, date_limite, status, priority);
+				INSERT INTO  tasks (description, date_limite, status, priorite)
+				VALUES ('%s','%s', '%s', '%s');
+				""",description, date_limite, status, priority);
 		System.out.println(query);
 		try
 		{
@@ -107,12 +75,12 @@ public class AccesOnDataBase {
 		Connection conn=DriverManager.getConnection(url, user, password);
 		Statement stm=conn.createStatement();
 		ResultSet rs=stm.executeQuery(query);
-		String result="id\t description\t\t date_limite \t status \t priorite\n";
+		String result="id\t description\t\t date_limite \tstatus \t\t priorite\n";
 		while(rs.next())
 		{
-			result+=rs.getInt("id") + "\t" + rs.getString("description") + "\t\t" + rs.getString("date_limite") + "\t" + rs.getString("status") + "\t" + rs.getString("priorite") + "\n"  ;		
+			result+=rs.getInt("id") + "\t " + rs.getString("description") + "\t\t\t " + rs.getString("date_limite") + "\t\t" + rs.getString("status") + "\t " + rs.getString("priorite") + "\n"  ;		
 		}
 		return result;
 	}
-
+	
 }
