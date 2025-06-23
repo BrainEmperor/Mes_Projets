@@ -14,11 +14,11 @@ public class AccesOnDataBase {
 				VALUES ('%s','%s', '%s', '%s');
 				""",description, date_limite, status, priority);
 		System.out.println(query);
-		try
-		{
+		try (		
 			Connection conn=DriverManager.getConnection(url, user, password);
-			PreparedStatement stm=conn.prepareStatement(query);
-			stm.executeUpdate();	
+			PreparedStatement stm=conn.prepareStatement(query);	
+		){
+			stm.executeUpdate();
 		}
 		catch (SQLException e)
 		{
@@ -30,16 +30,17 @@ public class AccesOnDataBase {
 	
 	static String modify_task(int id, String attribut, String valeur)
 	{
-		try {
 		String query = String.format("""
 				UPDATE tasks
 				SET %s=%s
 				WHERE id=%d;
 				""",attribut, valeur, id);
-		Connection conn= DriverManager.getConnection(url, user, password);
-		PreparedStatement stm=conn.prepareStatement(query);
-		stm.executeUpdate();
-		return "Modification effectuée";
+		try(
+		    Connection conn= DriverManager.getConnection(url, user, password);
+		    PreparedStatement stm=conn.prepareStatement(query);
+		){
+		    stm.executeUpdate();
+	    	return "Modification effectuée";
 		}
 		catch(SQLException e)
 		{
@@ -72,15 +73,32 @@ public class AccesOnDataBase {
 	static String show_all_tasks() throws SQLException
 	{
 		String query="SELECT * FROM tasks";
-		Connection conn=DriverManager.getConnection(url, user, password);
-		Statement stm=conn.createStatement();
-		ResultSet rs=stm.executeQuery(query);
-		String result="id\t description\t\t date_limite \tstatus \t\t priorite\n";
-		while(rs.next())
-		{
-			result+=rs.getInt("id") + "\t " + rs.getString("description") + "\t\t\t " + rs.getString("date_limite") + "\t\t" + rs.getString("status") + "\t " + rs.getString("priorite") + "\n"  ;		
+		try(
+			Connection conn=DriverManager.getConnection(url, user, password);
+		    Statement stm=conn.createStatement();
+		){
+		    ResultSet rs=stm.executeQuery(query);
+		    String result="id\t description\t\t date_limite \tstatus \t\t priorite\n";
+	    	while(rs.next())
+		    {
+			    result+=rs.getInt("id") + "\t " + rs.getString("description") + "\t\t\t " + rs.getString("date_limite") + "\t\t" + rs.getString("status") + "\t " + rs.getString("priorite") + "\n"  ;		
+		    }
+		    return result;
 		}
-		return result;
+	}
+	
+	static String drop_task(int id) {
+		    String query="DELETE FROM tasks WHERE id="+id;
+			try (
+		        Connection conn=DriverManager.getConnection(url, user, password); 
+		        PreparedStatement stm = conn.prepareStatement(query);
+			){
+		    stm.executeUpdate();
+		}
+		catch(SQLException e) {
+			return "La tache n'a pas été retirée";
+		}
+		return "Tache enlevée avec succès";
 	}
 	
 }

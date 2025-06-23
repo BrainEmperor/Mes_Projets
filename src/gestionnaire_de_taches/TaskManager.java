@@ -37,7 +37,10 @@ public class TaskManager {
 			case 2 :
 				System.out.println(AccesOnDataBase.show_all_tasks());
 				break;
-			case 3 :
+			case 3 : 
+				System.out.println("id ? :");
+				System.out.println(AccesOnDataBase.drop_task(eingabe.nextInt()));
+				break;
 			case 4 : 
 				System.out.println("id ? :");
 				int id=eingabe.nextInt();
@@ -49,7 +52,9 @@ public class TaskManager {
 				AccesOnDataBase.modify_task(id, attribut, valeur);
 				break;
 			case 5 :
+				
 			case 6 :
+				break;
 			default :
 				continue;
 			}
